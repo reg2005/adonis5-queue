@@ -1,7 +1,7 @@
 import { BaseCommand, Kernel } from '@adonisjs/ace'
 import { dirExistsSync, listFiles } from '../src/utils'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import { Queue } from 'Adonis/Addons/Queue'
+import { Queue } from 'adonis5-kue'
 import { ConfigContract } from '@ioc:Adonis/Core/Config'
 /**
  * Launch queue workers to start processing
@@ -22,14 +22,14 @@ export default class QueueWork extends BaseCommand {
 	constructor(app: ApplicationContract, kernel: Kernel) {
 		super(app, kernel)
 		this.config = app.container.use('Adonis/Core/Config')
-		this.queue = app.container.use('Adonis/Addons/Queue')
+		this.queue = app.container.use('adonis5-kue')
 	}
 	/**
 	 * Execute command
 	 */
 	public async handle(): Promise<void> {
 		if (!(await this.hasJobs())) {
-			this.logger.error('No jobs to watch for. Please use queue:job to create jobs!')
+			this.logger.error('No jobs to watch for. Please use `node ace queue:job` to create jobs!')
 			return
 		}
 		try {

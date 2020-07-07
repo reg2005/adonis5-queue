@@ -1,9 +1,8 @@
-import { QueueConfig } from 'Adonis/Addons/Queue'
-import { join } from 'path'
+import { QueueConfig } from 'adonis5-kue'
 export function getConfig(): QueueConfig {
 	return {
-		consumerPath: join(__dirname, '..', '/app/Jobs/Consumers'),
-		producerPath: join(__dirname, '..', '/app/Jobs/Producers'),
+		consumerPath: './../../../tmp/app/Jobs/Consumers',
+		producerPath: './../../../tmp/app/Jobs/Producers',
 
 		connection: {
 			/**

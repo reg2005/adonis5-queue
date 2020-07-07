@@ -9,31 +9,31 @@ import QueueJob from './../commands/QueueJob'
 import QueueWork from './../commands/QueueWork'
 import { getConfig } from '../test-helpers/index'
 import QueueProvider from '../providers/QueueProvider'
-import { Queue } from 'Adonis/Addons/Queue'
+import { Queue } from 'adonis5-kue'
 import TestJob from '../app/Jobs/Producers/test'
 
 const fs = new Filesystem(join(__dirname, '__app'))
-test.group('Auth test', () => {
+test.group('Queue test', () => {
 	test('test queue:job', async (assert) => {
-		const config = new Config({
-			queue: getConfig(),
-		})
+		console.log(fs.basePath)
 		const app = new Application(join(fs.basePath, 'build'), {} as any, {} as any, {})
-		const queueJob = new QueueJob(app, new Kernel(app), config)
-		queueJob.jobName = 'test'
+		const ioc = new Ioc()
+		ioc.bind('Adonis/Core/Config', () => new Config({ queue: getConfig() }))
+		app.container = ioc
+		const queueJob = new QueueJob(app, new Kernel(app))
+		queueJob.jobName = 'testTwo'
 		await queueJob.handle()
 		assert.exists(1)
-		assert.equal(1, 1)
 	})
 	test('test queue:work', async () => {
 		const ioc = new Ioc()
 		ioc.bind('Adonis/Core/Config', () => new Config({ queue: getConfig() }))
-		// console.log(config.get('queue'))
 		const queueProvider = new QueueProvider(ioc)
 		queueProvider.register()
-		const queue: Queue = ioc.use('Adonis/Addons/Queue')
+		const queue: Queue = ioc.use('adonis5-kue')
 		await queue.clear()
 		const app = new Application(join(fs.basePath, 'build'), {} as any, {} as any, {})
+
 		app.container = ioc
 		await queue.dispatch(new TestJob({ test: '333' }))
 		// TODO fix remove job
@@ -42,8 +42,7 @@ test.group('Auth test', () => {
 		const queueWork = new QueueWork(app, new Kernel(app))
 		queueWork.handle()
 
-		await new Promise(() => {})
 		// assert.exists(1)
 		// assert.equal(1, 1)
-	}).timeout(0)
+	}).timeout(2000)
 })

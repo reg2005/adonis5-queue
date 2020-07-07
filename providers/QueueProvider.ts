@@ -19,7 +19,7 @@ export default class CommandProvider {
 	 * Register the redis binding
 	 */
 	public register() {
-		this.container.singleton('Adonis/Addons/Queue', () => {
+		this.container.singleton('adonis5-kue', () => {
 			const queueConfig = this.container.use('Adonis/Core/Config').get('queue', {})
 			return new QueueManager(queueConfig)
 		})

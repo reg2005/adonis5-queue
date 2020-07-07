@@ -1,5 +1,5 @@
 /* eslint-gnore */
-import { QueueConfig, ProcessingResultInteface } from 'Adonis/Addons/Queue'
+import { QueueConfig, ProcessingResultInteface } from 'adonis5-kue'
 import Kue from 'kue-scheduler'
 import { JobDirectoryNotFoundError, JobProcessError } from '../errors/index'
 import { listFiles } from './../utils'

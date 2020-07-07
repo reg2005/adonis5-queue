@@ -1,10 +1,8 @@
 import path from 'path'
-import mustache from 'mustache'
 import { paramCase, pascalCase } from 'change-case'
 import { BaseCommand, flags, args, Kernel } from '@adonisjs/ace'
-import { readFile, writeFile, dirExistsSync, createDir, deleteFile } from '../src/utils'
-import { Config } from '@adonisjs/config/build/standalone'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import { ConfigContract } from '@ioc:Adonis/Core/Config'
 
 /**
  * Generate producer/consumer pair for new jobs
@@ -13,6 +11,7 @@ import { ApplicationContract } from '@ioc:Adonis/Core/Application'
  * @adonis-version 5.0+
  */
 export default class QueueJob extends BaseCommand {
+	private config: ConfigContract
 	public static commandName = 'queue:job'
 	public static description = 'Generate producer/consumer pair for new jobs'
 
@@ -22,15 +21,13 @@ export default class QueueJob extends BaseCommand {
 	@flags.string({ description: 'Run seeders in interactive mode', alias: 'jobId' })
 	public jobId: string
 
-	@flags.string({ description: 'Remove this job', alias: 'remove' })
-	public remove: string
-
 	public static settings = {
 		loadApp: true,
 	}
 
-	constructor(app: ApplicationContract, kernel: Kernel, private config: Config) {
+	constructor(app: ApplicationContract, kernel: Kernel) {
 		super(app, kernel)
+		this.config = app.container.use('Adonis/Core/Config')
 	}
 	/**
 	 * Execute command
@@ -40,40 +37,37 @@ export default class QueueJob extends BaseCommand {
 		const jobName = pascalCase(this.jobName)
 		try {
 			// parse respective templates
-			const producerTmpl = await readFile(path.join(__dirname, '../templates/producer.txt'), 'utf8')
-			const producerTask = mustache.render(producerTmpl, {
-				jobName,
-				jobId,
-			})
-			const consumerTmpl = await readFile(path.join(__dirname, '../templates/consumer.txt'), 'utf8')
-			const consumerTask = mustache.render(consumerTmpl, {
-				jobName,
-				jobId,
-			})
+			const producerTmpl = path.join(__dirname, '../templates/producer.txt')
+			const consumerTmpl = path.join(__dirname, '../templates/consumer.txt')
 
 			// save into selected directory
-			const consumerPath = this.config.get('queue.consumerPath')
 			const producerPath = this.config.get('queue.producerPath')
-			console.log(consumerPath)
-			if (!dirExistsSync(consumerPath)) {
-				await createDir(consumerPath)
-			}
+			const consumerPath = this.config.get('queue.consumerPath')
+			this.generator
+				.addFile(this.jobName, { pattern: 'pascalcase', form: 'singular' })
+				.apply({
+					jobName,
+					jobId,
+				})
+				.stub(producerTmpl)
+				.destinationDir(producerPath)
+				.useMustache()
+				.appRoot(this.application.cliCwd || this.application.appRoot)
 
-			if (!dirExistsSync(producerPath)) {
-				await createDir(producerPath)
-			}
+			await this.generator.run()
+			this.generator.clear()
 
-			if (this.remove) {
-				await deleteFile(`${consumerPath}/${this.jobName}.js`)
-				await deleteFile(`${producerPath}/${this.jobName}.js`)
-
-				this.logger.success('Job has been removed')
-			} else {
-				await writeFile(`${consumerPath}/${this.jobName}.ts`, consumerTask)
-				await writeFile(`${producerPath}/${this.jobName}.ts`, producerTask)
-
-				this.logger.success('Job has been created')
-			}
+			this.generator
+				.addFile(this.jobName, { pattern: 'pascalcase', form: 'singular' })
+				.apply({
+					jobName,
+					jobId,
+				})
+				.stub(consumerTmpl)
+				.destinationDir(consumerPath)
+				.useMustache()
+				.appRoot(this.application.cliCwd || this.application.appRoot)
+			await this.generator.run()
 		} catch (e) {
 			console.error(e)
 			this.logger.error('Failed to generate job classes with error ' + e.message)

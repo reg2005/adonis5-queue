@@ -3,14 +3,20 @@
 ## Table of contents
 
 - [adonis5-kue](#adonis5-kue)
-  - [Features](#Features)
-  - [Consumer/Producer model](#Consumer/Producer-model)
-  - [Notices](#Notices)
+- [Adonis5 Queue](#adonis5-queue)
+  - [Features](#features)
+  - [Consumer/Producer model](#consumerproducer-model)
+  - [Notices](#notices)
   - [Installation](#installation)
-  - [Create a job](#Create-a-job)
-  - [Job API](#Job-API)
-  - [Queue API](#Queue-API)
-  - [Development](#Development)
+      - [Create a job](#create-a-job)
+    - [Run worker](#run-worker)
+  - [Job API](#job-api)
+  - [Queue API](#queue-api)
+    - [Access the queue](#access-the-queue)
+    - [Push job onto the queue](#push-job-onto-the-queue)
+    - [Remove jobs](#remove-jobs)
+    - [Run tests](#run-tests)
+  - [Development](#development)
   - [Thanks](#thanks)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->

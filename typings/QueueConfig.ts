@@ -1,4 +1,4 @@
-declare module 'Adonis/Addons/Queue' {
+declare module 'adonis5-kue' {
 	import { Job } from 'kue'
 	import KueScheduler from 'kue-scheduler'
 
@@ -29,7 +29,7 @@ declare module 'Adonis/Addons/Queue' {
 	}
 
 	export interface ProducerJob {
-		['constructor']: typeof ProducerJob
+		['constructor']: any
 		priority: string
 		attempts: number
 		unique: boolean

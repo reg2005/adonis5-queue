@@ -2,8 +2,8 @@ import Kue from 'kue-scheduler'
 import { Job } from 'kue-unique'
 import JobMaker from './JobMaker'
 import JobRegister from './JobRegister'
-import { QueueConfig, JobMakerInterface } from 'Adonis/Addons/Queue'
-// import { Queue } from 'Adonis/Addons/Queue'
+import { QueueConfig, JobMakerInterface } from 'adonis5-kue'
+// import { Queue } from 'adonis5-kue'
 /**
  * Main queue driver
  *

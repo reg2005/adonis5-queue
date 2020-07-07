@@ -5,11 +5,11 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { QueueConfig } from 'Adonis/Addons/Queue'
+import { QueueConfig } from 'adonis5-kue'
 
 const queueConfig: QueueConfig = {
-  	consumerPath: '/app/Jobs/Consumers',
-	producerPath: '/app/Jobs/Producers',
+  	consumerPath: './app/Jobs/Consumers',
+  	producerPath: './app/Jobs/Producers',
 
 	connection: {
 		/**
@@ -21,9 +21,9 @@ const queueConfig: QueueConfig = {
 		prefix: 'adonis5:queue',
 
 		redis: {
-			host: Env.get('REDIS_HOST', 'localhost'),
-			port: parseInt(Env.get('REDIS_PORT', '6379').toString()),
-			db: parseInt(Env.get('REDIS_DB', '6379').toString()),
+			host: Env.get('QUEUE_REDIS_HOST', 'localhost')!.toString(),
+			port: parseInt(Env.get('QUEUE_REDIS_PORT', '6379')!.toString()),
+			db: parseInt(Env.get('QUEUE_REDIS_DB', '6379')!.toString()),
 			options: {}
 		},
 

@@ -16,25 +16,24 @@ const index_2 = require("../test-helpers/index");
 const QueueProvider_1 = __importDefault(require("../providers/QueueProvider"));
 const test_1 = __importDefault(require("../app/Jobs/Producers/test"));
 const fs = new dev_utils_1.Filesystem(path_1.join(__dirname, '__app'));
-japa_1.default.group('Auth test', () => {
+japa_1.default.group('Queue test', () => {
     japa_1.default('test queue:job', async (assert) => {
-        const config = new Config_1.Config({
-            queue: index_2.getConfig(),
-        });
+        console.log(fs.basePath);
         const app = new standalone_1.Application(path_1.join(fs.basePath, 'build'), {}, {}, {});
-        const queueJob = new QueueJob_1.default(app, new ace_1.Kernel(app), config);
-        queueJob.jobName = 'test';
+        const ioc = new index_1.Ioc();
+        ioc.bind('Adonis/Core/Config', () => new Config_1.Config({ queue: index_2.getConfig() }));
+        app.container = ioc;
+        const queueJob = new QueueJob_1.default(app, new ace_1.Kernel(app));
+        queueJob.jobName = 'testTwo';
         await queueJob.handle();
         assert.exists(1);
-        assert.equal(1, 1);
     });
     japa_1.default('test queue:work', async () => {
         const ioc = new index_1.Ioc();
         ioc.bind('Adonis/Core/Config', () => new Config_1.Config({ queue: index_2.getConfig() }));
-        // console.log(config.get('queue'))
         const queueProvider = new QueueProvider_1.default(ioc);
         queueProvider.register();
-        const queue = ioc.use('Adonis/Addons/Queue');
+        const queue = ioc.use('adonis5-kue');
         await queue.clear();
         const app = new standalone_1.Application(path_1.join(fs.basePath, 'build'), {}, {}, {});
         app.container = ioc;
@@ -44,8 +43,7 @@ japa_1.default.group('Auth test', () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const queueWork = new QueueWork_1.default(app, new ace_1.Kernel(app));
         queueWork.handle();
-        await new Promise(() => { });
         // assert.exists(1)
         // assert.equal(1, 1)
-    }).timeout(0);
+    }).timeout(2000);
 });
