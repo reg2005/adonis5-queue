@@ -22,9 +22,9 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # adonis5-queue
-> Tagline
+> priority-queue worker-queue job-queue
 
-[![travis-image]][travis-url] [![typescript-image]][typescript-url] [![npm-image]][npm-url] [![license-image]][license-url]
+[![typescript-image]][typescript-url] [![npm-image]][npm-url] [![license-image]][license-url]
 
 # Adonis5 Queue
 Adonis5 queue is a worker-based queue library for [AdonisJS](https://github.com/adonisjs/adonis-framework), it is backed by [Kue](https://github.com/Automattic/kue) and [Kue-Scheduler](https://github.com/lykmapipo/kue-scheduler). 
