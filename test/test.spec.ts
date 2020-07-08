@@ -9,7 +9,7 @@ import QueueJob from './../commands/QueueJob'
 import QueueWork from './../commands/QueueWork'
 import { getConfig } from '../test-helpers/index'
 import QueueProvider from '../providers/QueueProvider'
-import { Queue } from '@ioc:Reg2005/Adonis5/Kue'
+import { Queue } from '@ioc:Adonis5/Queue'
 import TestJob from '../app/Jobs/Producers/test'
 
 const fs = new Filesystem(join(__dirname, '__app'))
@@ -30,7 +30,7 @@ test.group('Queue test', () => {
 		ioc.bind('Adonis/Core/Config', () => new Config({ queue: getConfig() }))
 		const queueProvider = new QueueProvider(ioc)
 		queueProvider.register()
-		const queue: Queue = ioc.use('@ioc:Reg2005/Adonis5/Kue')
+		const queue: Queue = ioc.use('@ioc:Adonis5/Queue')
 		await queue.clear()
 		const app = new Application(join(fs.basePath, 'build'), {} as any, {} as any, {})
 

@@ -33,7 +33,7 @@ japa_1.default.group('Queue test', () => {
         ioc.bind('Adonis/Core/Config', () => new Config_1.Config({ queue: index_2.getConfig() }));
         const queueProvider = new QueueProvider_1.default(ioc);
         queueProvider.register();
-        const queue = ioc.use('@ioc:Reg2005/Adonis5/Kue');
+        const queue = ioc.use('@ioc:Adonis5/Queue');
         await queue.clear();
         const app = new standalone_1.Application(path_1.join(fs.basePath, 'build'), {}, {}, {});
         app.container = ioc;

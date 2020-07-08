@@ -20,9 +20,8 @@ export default class CommandProvider {
 	 * Register the redis binding
 	 */
 	public register() {
-		this.container.singleton('@ioc:Reg2005/Adonis5/Kue', () => {
+		this.container.singleton('Adonis5/Queue', () => {
 			const app: Application = this.container.use('Adonis/Core/Application')
-			console.log()
 			const queueConfig = this.container.use('Adonis/Core/Config').get('queue', {})
 			return new QueueManager(queueConfig, app.appRoot)
 		})

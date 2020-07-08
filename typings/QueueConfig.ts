@@ -1,4 +1,4 @@
-declare module '@ioc:Reg2005/Adonis5/Kue' {
+declare module '@ioc:Adonis5/Queue' {
 	import { Job } from 'kue'
 	import KueScheduler from 'kue-scheduler'
 

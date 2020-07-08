@@ -1,7 +1,7 @@
 import { BaseCommand, Kernel } from '@adonisjs/ace'
 import { dirExistsSync, listFiles } from '../src/utils'
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import { Queue } from '@ioc:Reg2005/Adonis5/Kue'
+import { Queue } from '@ioc:Adonis5/Queue'
 import { ConfigContract } from '@ioc:Adonis/Core/Config'
 /**
  * Launch queue workers to start processing
@@ -22,7 +22,7 @@ export default class QueueWork extends BaseCommand {
 	constructor(app: ApplicationContract, kernel: Kernel) {
 		super(app, kernel)
 		this.config = app.container.use('Adonis/Core/Config')
-		this.queue = app.container.use('@ioc:Reg2005/Adonis5/Kue')
+		this.queue = app.container.use('Adonis5/Queue')
 	}
 	/**
 	 * Execute command

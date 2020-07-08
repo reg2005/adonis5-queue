@@ -5,7 +5,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { QueueConfig } from '@ioc:Reg2005/Adonis5/Kue'
+import { QueueConfig } from '@ioc:Adonis5/Queue'
 
 const queueConfig: QueueConfig = {
   consumerPath: './app/Jobs/Consumers',

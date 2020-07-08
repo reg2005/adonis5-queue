@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { ProducerJob } from '@ioc:Reg2005/Adonis5/Kue'
+import { ProducerJob } from '@ioc:Adonis5/Queue'
 /**
  * Sample job producer class
  *
@@ -15,7 +15,7 @@ export default class Test extends EventEmitter implements ProducerJob {
 	 * Make sure consumer and producer are in sync
 	 * @return {String}
 	 */
-	public static get type() {
+	public static type() {
 		return 'test'
 	}
 
