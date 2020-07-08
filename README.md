@@ -2,7 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of contents
 
-- [adonis5-kue](#adonis5-kue)
+- [adonis5-queue](#adonis5-queue)
 - [Adonis5 Queue](#adonis5-queue)
   - [Features](#features)
   - [Consumer/Producer model](#consumerproducer-model)
@@ -21,7 +21,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# adonis5-kue
+# adonis5-queue
 > Tagline
 
 [![travis-image]][travis-url] [![typescript-image]][typescript-url] [![npm-image]][npm-url] [![license-image]][license-url]
@@ -51,15 +51,15 @@ This version only support **Adonis V5+**.
 ## Installation
 Install it:
 ```bash
-npm i --save adonis5-kue
+npm i --save adonis5-queue
 ```
 Compile your code:
 ```bash
-node ace server --watch
+node ace serve --watch
 ```
 Connect all dependences:
 ```bash
-node ace invoke adonis5-kue
+node ace invoke adonis5-queue
 ```
 
 #### Create a job
@@ -131,7 +131,7 @@ job.on('init', async () => await Queue.remove(job));
 
 ### Access the queue
 ```js
-const Queue = use('adonis5-kue');
+const Queue = use('@ioc:Reg2005/Adonis5/Kue');
 ```
 ### Push job onto the queue
 ```js
@@ -190,8 +190,8 @@ Many thanks to:
 [typescript-image]: https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript
 [typescript-url]:  "typescript"
 
-[npm-image]: https://img.shields.io/npm/v/adonis5-kue.svg?style=for-the-badge&logo=npm
-[npm-url]: https://npmjs.org/package/adonis5-kue "npm"
+[npm-image]: https://img.shields.io/npm/v/adonis5-queue.svg?style=for-the-badge&logo=npm
+[npm-url]: https://npmjs.org/package/adonis5-queue "npm"
 
-[license-image]: https://img.shields.io/npm/l/adonis5-kue?color=blueviolet&style=for-the-badge
+[license-image]: https://img.shields.io/npm/l/adonis5-queue?color=blueviolet&style=for-the-badge
 [license-url]: LICENSE.md "license"

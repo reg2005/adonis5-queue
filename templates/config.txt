@@ -5,32 +5,32 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { QueueConfig } from 'adonis5-kue'
+import { QueueConfig } from '@ioc:Reg2005/Adonis5/Kue'
 
 const queueConfig: QueueConfig = {
-  	consumerPath: './app/Jobs/Consumers',
-  	producerPath: './app/Jobs/Producers',
+  consumerPath: './app/Jobs/Consumers',
+  producerPath: './app/Jobs/Producers',
 
-	connection: {
-		/**
+  connection: {
+    /**
 		 * The prefix is for differentiating kue job names from
 		 * other redis-related tasks. Modify to your needs.
 		 *
 		 * @type {String}
 		 */
-		prefix: 'adonis5:queue',
+    prefix: 'adonis5:queue',
 
-		redis: {
-			host: Env.get('QUEUE_REDIS_HOST', 'localhost')!.toString(),
-			port: parseInt(Env.get('QUEUE_REDIS_PORT', '6379')!.toString()),
-			db: parseInt(Env.get('QUEUE_REDIS_DB', '6379')!.toString()),
-			options: {}
-		},
+    redis: {
+      host: Env.get('QUEUE_REDIS_HOST', 'localhost')!.toString(),
+      port: parseInt(Env.get('QUEUE_REDIS_PORT', '6379')!.toString()),
+      db: parseInt(Env.get('QUEUE_REDIS_DB', '6379')!.toString()),
+      options: {},
+    },
 
-		restore: true,
+    restore: true,
 
-		worker: true
-	}
+    worker: true,
+  },
 }
 
 export default queueConfig

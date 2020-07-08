@@ -1,4 +1,4 @@
-import { QueueConfig } from 'adonis5-kue'
+import { QueueConfig } from '@ioc:Reg2005/Adonis5/Kue'
 export function getConfig(): QueueConfig {
 	return {
 		consumerPath: './../../../tmp/app/Jobs/Consumers',

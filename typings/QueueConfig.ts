@@ -1,4 +1,4 @@
-declare module 'adonis5-kue' {
+declare module '@ioc:Reg2005/Adonis5/Kue' {
 	import { Job } from 'kue'
 	import KueScheduler from 'kue-scheduler'
 
@@ -33,9 +33,9 @@ declare module 'adonis5-kue' {
 		priority: string
 		attempts: number
 		unique: boolean
-		type: string
-		delay: number
-		ttl: number
+		type?: string
+		delay?: number
+		ttl?: number
 		backoff?(job: Job): void
 		onInit(job: Job): void
 		/**

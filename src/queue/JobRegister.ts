@@ -1,9 +1,9 @@
 /* eslint-gnore */
-import { QueueConfig, ProcessingResultInteface } from 'adonis5-kue'
+import { QueueConfig, ProcessingResultInteface } from '@ioc:Reg2005/Adonis5/Kue'
 import Kue from 'kue-scheduler'
 import { JobDirectoryNotFoundError, JobProcessError } from '../errors/index'
 import { listFiles } from './../utils'
-
+import { join } from 'path'
 /**
  * Register and preload consumer processes
  *
@@ -13,9 +13,11 @@ import { listFiles } from './../utils'
 export default class JobRegister {
 	private config: QueueConfig
 	private queue: Kue
+	private appRootPath: string
 
-	constructor(Config: QueueConfig) {
+	constructor(Config: QueueConfig, appRootPath: string) {
 		this.config = Config
+		this.appRootPath = appRootPath
 	}
 
 	/**
@@ -53,7 +55,7 @@ export default class JobRegister {
 	 * @return {Promise<String>} File paths
 	 */
 	public jobFilePaths() {
-		return listFiles(this.config.consumerPath)
+		return listFiles(join(this.appRootPath, this.config.consumerPath))
 	}
 
 	/**
@@ -64,9 +66,9 @@ export default class JobRegister {
 	public async requireAndProcessJobs(filePaths) {
 		filePaths.forEach((path: string) => {
 			// path = path.replace('.ts', '.js')
-			const fullPath = `${this.config.consumerPath}/${path}`
+			const fullPath = `${join(this.appRootPath, this.config.consumerPath)}/${path}`
 
-			if (path.includes('index')) {
+			if (path.includes('index') || path.includes('.map')) {
 				return
 			}
 			const Job = require(fullPath).default

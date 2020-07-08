@@ -9,6 +9,7 @@
 
 import { IocContract } from '@adonisjs/fold'
 import QueueManager from '../src/queue/QueueManager'
+import { Application } from '@adonisjs/application'
 /**
  * Provider to bind redis to the container
  */
@@ -19,9 +20,11 @@ export default class CommandProvider {
 	 * Register the redis binding
 	 */
 	public register() {
-		this.container.singleton('adonis5-kue', () => {
+		this.container.singleton('@ioc:Reg2005/Adonis5/Kue', () => {
+			const app: Application = this.container.use('Adonis/Core/Application')
+			console.log()
 			const queueConfig = this.container.use('Adonis/Core/Config').get('queue', {})
-			return new QueueManager(queueConfig)
+			return new QueueManager(queueConfig, app.appRoot)
 		})
 	}
 

@@ -2,8 +2,8 @@ import Kue from 'kue-scheduler'
 import { Job } from 'kue-unique'
 import JobMaker from './JobMaker'
 import JobRegister from './JobRegister'
-import { QueueConfig, JobMakerInterface } from 'adonis5-kue'
-// import { Queue } from 'adonis5-kue'
+import { QueueConfig, JobMakerInterface } from '@ioc:Reg2005/Adonis5/Kue'
+// import { Queue } from '@ioc:Reg2005/Adonis5/Kue'
 /**
  * Main queue driver
  *
@@ -13,12 +13,14 @@ import { QueueConfig, JobMakerInterface } from 'adonis5-kue'
 export default class Queue implements Queue {
 	private queue: Kue
 	private config: QueueConfig
+	private appRootPath: string
 	/**
 	 * Construct the queue
 	 * @param  {Adonis/App} app Adonis app/Ioc instance
 	 */
-	constructor(config: QueueConfig) {
+	constructor(config: QueueConfig, appRootPath: string) {
 		this.config = config
+		this.appRootPath = appRootPath
 		// initialize kue queue
 		this.queue = Kue.createQueue(this.config.connection)
 		// boost number of event listeners a queue instance can listen to
@@ -30,7 +32,7 @@ export default class Queue implements Queue {
 	 * @return {Promise}
 	 */
 	public processing() {
-		const register = new JobRegister(this.config)
+		const register = new JobRegister(this.config, this.appRootPath)
 		return register.setQueue(this.queue).listenForAppJobs()
 	}
 

@@ -1,7 +1,7 @@
 {
-  "name": "adonis5-kue",
-  "version": "1.0.0",
-  "description": "AdonisJS 5 queue package based backed by Kue and Kue-scheduler",
+  "name": "adonis5-queue",
+  "version": "1.0.2",
+  "description": "Adonis JS 5 queue package based backed by Kue and Kue-scheduler",
   "scripts": {
     "build": "npm run compile && cpx 'templates/**' 'build/templates'",
     "dev": "tsc --watch",
@@ -16,6 +16,10 @@
     "commit": "git-cz",
     "release": "np",
     "version": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reg2005/adonis5-queue"
   },
   "keywords": [
     "adonis",
@@ -105,11 +109,11 @@
       ]
     },
     "commands": [
-      "adonis5-kue/build/commands"
+      "adonis5-queue/build/commands"
     ],
-    "types": "adonis5-kue",
+    "types": "adonis5-queue",
     "providers": [
-      "adonis5-kue"
+      "adonis5-queue"
     ],
     "env": {
       "QUEUE_REDIS_HOST": "127.0.0.1",

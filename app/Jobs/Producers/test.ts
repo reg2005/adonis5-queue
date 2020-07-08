@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events'
+import { ProducerJob } from '@ioc:Reg2005/Adonis5/Kue'
 /**
  * Sample job producer class
  *
@@ -6,7 +7,7 @@ import { EventEmitter } from 'events'
  * @adonis-version 4.0+
  */
 
-export default class Test extends EventEmitter {
+export default class Test extends EventEmitter implements ProducerJob {
 	public data: any
 	public ctx: any
 	/**

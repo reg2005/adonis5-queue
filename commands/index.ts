@@ -1,1 +1,1 @@
-export default ['adonis5-kue/build/commands/QueueJob', 'adonis5-kue/build/commands/QueueWork']
+export default ['adonis5-queue/build/commands/QueueJob', 'adonis5-queue/build/commands/QueueWork']
