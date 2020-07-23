@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
-                            July 8th 2020, 10:25:38 am
+                            July 23rd 2020, 12:06:14 pm
                         </h5>
                         <p class="card-text">Last updated</p>
                     </div>
@@ -332,14 +332,14 @@ If you&#39;re using <code>extend</code> 2.x upgrade to 2.0.2 or later.</p>
                         </div>
                         <div class="col-md-6">
                             <ul>
-                                <li>Vulnerable: &gt;&#x3D;0.0.0</li>
-                                <li>Patched: &lt;0.0.0</li>
+                                <li>Vulnerable: &lt;4.17.19</li>
+                                <li>Patched: &gt;&#x3D;4.17.19</li>
                                 <li>Exploitability: 3</li>
                             </ul>
                         </div>
                     </div>
                     <h3>Overview</h3>
-                    <p class="card-text"><p>All versions of <code>lodash</code> are vulnerable to Prototype Pollution.  The function <code>zipObjectDeep</code> allows a malicious user to modify the prototype of <code>Object</code> if the property identifiers are user-supplied. Being affected by this issue requires zipping objects based on user-provided property arrays.  </p>
+                    <p class="card-text"><p>Versions of <code>lodash</code> prior to 4.17.19 are vulnerable to Prototype Pollution.  The function <code>zipObjectDeep</code> allows a malicious user to modify the prototype of <code>Object</code> if the property identifiers are user-supplied. Being affected by this issue requires zipping objects based on user-provided property arrays.  </p>
 <p>This vulnerability causes the addition or modification of an existing property that will exist on all objects and may lead to Denial of Service or Code Execution under specific circumstances.</p>
 </p>
 
@@ -359,7 +359,7 @@ If you&#39;re using <code>extend</code> 2.x upgrade to 2.0.2 or later.</p>
                     </ul>
 
                     <h3>Remediation</h3>
-                    <p class="card-text"><p>No fix is currently available. Consider using an alternative package until a fix is made available.</p>
+                    <p class="card-text"><p>Upgrade to version 4.17.19 or later.</p>
 </p>
                      
                     <h3>References</h3>

@@ -9,6 +9,7 @@ class BaseError extends Error {
 	}
 
 	public setError(error) {
+		console.log(error)
 		this.error = error
 		return this
 	}
