@@ -1,0 +1,10 @@
+{
+	"typescript": true,
+	"aliases": {
+		"App": "app",
+		"Config": "config",
+		"Database": "database",
+		"Contracts": "contracts"
+	},
+	"providers": ["@adonisjs/core", "./../providers/QueueProvider"]
+}

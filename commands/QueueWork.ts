@@ -39,7 +39,6 @@ export default class QueueWork extends BaseCommand {
 			console.error(e.message)
 			process.exit(1)
 		}
-
 		this.logger.success('Worker are running...')
 
 		// prevent the main process from exiting...
@@ -47,8 +46,8 @@ export default class QueueWork extends BaseCommand {
 	}
 	public async hasJobs() {
 		// load from defined job path
-		const consumerPath = this.config.get('queue.consumerPath')
-		const producerPath = this.config.get('queue.producerPath')
+		const consumerPath = this.application.makePath(this.config.get('queue.consumerPath'))
+		const producerPath = this.application.makePath(this.config.get('queue.producerPath'))
 
 		if (!dirExistsSync(consumerPath) || !dirExistsSync(producerPath)) {
 			return false

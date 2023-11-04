@@ -1,8 +1,5 @@
 {
     "compileOnSave": true,
-    "parserOptions": {
-        "project": "sdf"
-    },
     "compilerOptions": {
         "experimentalDecorators": true,
     },

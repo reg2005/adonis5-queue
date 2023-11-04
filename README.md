@@ -53,13 +53,10 @@ Install it:
 ```bash
 npm i --save adonis5-queue
 ```
-Compile your code:
-```bash
-node ace serve --watch
 ```
 Connect all dependences:
 ```bash
-node ace invoke adonis5-queue
+node ace configure adonis5-queue
 ```
 
 #### Create a job
